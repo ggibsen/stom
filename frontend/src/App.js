@@ -21,8 +21,8 @@ class App extends Component {
 class HelloWorld extends Component {
     constructor(props) {
         super(props);
-        if (!props) {
-            props.title = 'default title (Hello World)';
+        if (!props || !props.title) {
+            props = { title: 'default title (Hello World)'};
         }
         this.state = { title: props.title };
     }
@@ -31,15 +31,14 @@ class HelloWorld extends Component {
         return (
             <div className="HW-app">
                 <header className="HW-app-header">
-                    <h1>this.state.title</h1>
+                    <h1>{this.state.title}</h1>
                 </header>
             </div>
         );
     }
 }
 
-// export default HelloWorld;
+export default HelloWorld;
 
 //TODO can you export 2+ classes in a file?
-export default App;
-
+// export default App;
