@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+export class App extends Component {
     render() {
         return (
             <div className="App">
@@ -18,7 +18,7 @@ class App extends Component {
     }
 }
 
-class HelloWorld extends Component {
+export class HelloWorld extends Component {
     constructor(props) {
         super(props);
         if (!props || !props.title) {
@@ -41,4 +41,5 @@ class HelloWorld extends Component {
 export default HelloWorld;
 
 //TODO can you export 2+ classes in a file?
-// export default App;
+// export class App;
+// export var e = 2.71828182846;
