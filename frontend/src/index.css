@@ -21,7 +21,7 @@ body {
     background: #fff;
     border: 1px solid #999;
     float: left;
-    font-size: 24px;
+    font-size: 10px;
     font-weight: bold;
     line-height: 34px;
     height: 34px;
@@ -48,4 +48,3 @@ body {
   .game-info {
     margin-left: 20px;
   }
-  

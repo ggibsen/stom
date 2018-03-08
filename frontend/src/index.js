@@ -6,15 +6,18 @@ class Square extends React.Component {
     render() {
         return (
             <button className="square">
-                {this.props.num}
+                {this.props.num}, {this.props.letter}
             </button>
         );
     }
 }
 
 class Board extends React.Component {
-    renderSquare(i) {
-        return <Square num={i} />;
+    renderSquare(i, letter) {
+        if ( !letter ) {
+            letter = '?';
+        }
+        return <Square num={i} letter={letter} />;
     }
 
     render() {
@@ -24,9 +27,9 @@ class Board extends React.Component {
             <div>
                 <div className="status">{status}</div>
                 <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
+                    {this.renderSquare(0, 'a')}
+                    {this.renderSquare(1, 'b')}
+                    {this.renderSquare(2, 'c')}
                 </div>
                 <div className="board-row">
                     {this.renderSquare(3)}
