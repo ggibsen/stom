@@ -3,28 +3,33 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
-    constructor(props) {
-        super(props);  // always pass along ctor args to parent
-        this.state = {
-            value: null
-        };
-    }
     render() {
         return (
             // setState tells the comp its state has changed, therefore it invokes render()
-            <button className="square" onClick={() => this.setState({value: 'X'})}>
-                {this.state.value}
+            <button className="square" onClick={() => this.props.clickCallBack()}>
+                {this.props.display}
             </button>
         );
     }
 }
 
 class Board extends React.Component {
-    renderSquare(i, letter) {
-        if ( !letter ) {
-            letter = '?';
-        }
-        return <Square num={i} letter={letter} />;
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null)
+        };
+    }
+
+    renderSquare(i) {
+        return <Square num={i} display={this.state.squares[i]}
+            clickCallBack={() => this.handleClick(i)} />;
+    }
+
+    handleClick(index) {
+        //TODO react recommends keeping state immutable, hence creating a new array instead of modifying existng one
+        this.state.squares[index] = 'X';
+        this.setState({squares: this.state.squares});
     }
 
     render() {
@@ -34,9 +39,9 @@ class Board extends React.Component {
             <div>
                 <div className="status">{status}</div>
                 <div className="board-row">
-                    {this.renderSquare(0, 'a')}
-                    {this.renderSquare(1, 'b')}
-                    {this.renderSquare(2, 'c')}
+                    {this.renderSquare(0)}
+                    {this.renderSquare(1)}
+                    {this.renderSquare(2)}
                 </div>
                 <div className="board-row">
                     {this.renderSquare(3)}
