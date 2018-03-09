@@ -4,13 +4,14 @@ import './index.css';
 
 class Square extends React.Component {
     constructor(props) {
-        super(props);
+        super(props);  // always pass along ctor args to parent
         this.state = {
             value: null
         };
     }
     render() {
         return (
+            // setState tells the comp its state has changed, therefore it invokes render()
             <button className="square" onClick={() => this.setState({value: 'X'})}>
                 {this.state.value}
             </button>
