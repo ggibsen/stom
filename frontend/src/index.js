@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+/** 
+ * because Square doesn't keep its own state, and tells its parent when its accessed,
+ * this is example of 'Controlled Component'
+ * */
 class Square extends React.Component {
     render() {
         return (
