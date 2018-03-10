@@ -30,10 +30,10 @@ class Board extends React.Component {
     }
 
     handleClick(index) {
-        //TODO react recommends keeping state immutable, hence creating a new array instead of modifying existng one
-        this.state.squares[index] = 'X';
+        const newSquares = this.state.squares.slice();
+        newSquares[index] = 'X';
         // setState tells the comp its state has changed, therefore it invokes render()
-        this.setState({squares: this.state.squares});
+        this.setState({squares: newSquares});
     }
 
     render() {
