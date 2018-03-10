@@ -5,7 +5,6 @@ import './index.css';
 class Square extends React.Component {
     render() {
         return (
-            // setState tells the comp its state has changed, therefore it invokes render()
             <button className="square" onClick={() => this.props.clickCallBack()}>
                 {this.props.display}
             </button>
@@ -29,6 +28,7 @@ class Board extends React.Component {
     handleClick(index) {
         //TODO react recommends keeping state immutable, hence creating a new array instead of modifying existng one
         this.state.squares[index] = 'X';
+        // setState tells the comp its state has changed, therefore it invokes render()
         this.setState({squares: this.state.squares});
     }
 
