@@ -19,7 +19,7 @@ class Square extends React.Component {
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.moveChars = ['X', 'O'];
+        this.playerChars = ['X', 'O'];
         this.turn = 0;
         this.state = {
             squares: Array(9).fill(null)
@@ -38,21 +38,26 @@ class Board extends React.Component {
         }
         // best practice to keep state immutable, so here we're making a copy
         const newSquares = this.state.squares.slice();
-        newSquares[index] = this.getMoveCharForTurn();
+        newSquares[index] = this.getPlayerChar();
+        this.changePlayerTurn();
         // setState tells the comp its state has changed, therefore it invokes render()
         this.setState({ squares: newSquares });
     }
 
-    getMoveCharForTurn() {
-        return this.moveChars[(this.turn++) % 2];
+    changePlayerTurn() {
+        this.turn++;
+    }
+
+    getPlayerChar() {
+        return this.playerChars[(this.turn) % 2];
     }
 
     render() {
-        const status = 'Next player: X';
+        const status = 'Next player: ';
 
         return (
             <div>
-                <div className="status">{status}</div>
+                <div className="status">{status + this.getPlayerChar()}</div>
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
