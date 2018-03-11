@@ -30,6 +30,7 @@ class Board extends React.Component {
     }
 
     handleClick(index) {
+        // best practice to keep state immutable, so here we're making a copy
         const newSquares = this.state.squares.slice();
         newSquares[index] = 'X';
         // setState tells the comp its state has changed, therefore it invokes render()
