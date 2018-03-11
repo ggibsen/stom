@@ -19,6 +19,8 @@ class Square extends React.Component {
 class Board extends React.Component {
     constructor(props) {
         super(props);
+        this.moveChars = ['X', 'O'];
+        this.turn = 0;
         this.state = {
             squares: Array(9).fill(null)
         };
@@ -30,11 +32,19 @@ class Board extends React.Component {
     }
 
     handleClick(index) {
+        if ( this.state.squares[index] != null )  {
+            // if square is assigned (already clicked) then ignore the click event
+            return;
+        }
         // best practice to keep state immutable, so here we're making a copy
         const newSquares = this.state.squares.slice();
-        newSquares[index] = 'X';
+        newSquares[index] = this.getMoveCharForTurn();
         // setState tells the comp its state has changed, therefore it invokes render()
-        this.setState({squares: newSquares});
+        this.setState({ squares: newSquares });
+    }
+
+    getMoveCharForTurn() {
+        return this.moveChars[(this.turn++) % 2];
     }
 
     render() {
