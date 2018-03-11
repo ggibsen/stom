@@ -32,7 +32,7 @@ class Board extends React.Component {
     }
 
     handleClick(index) {
-        if ( this.state.squares[index] != null )  {
+        if (this.state.squares[index] != null) {
             // if square is assigned (already clicked) then ignore the click event
             return;
         }
