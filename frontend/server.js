@@ -8,4 +8,6 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(8081);
+const PORT = 8081;
+app.listen(PORT);
+console.log(`Running on http://localhost:${PORT}`);
