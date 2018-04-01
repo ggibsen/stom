@@ -5,11 +5,11 @@ ENV NODE_ENV production
 # specify dir to hold our app's code inside the image
 WORKDIR /usr/src/app
 # Install app dependencies
-COPY package*.json ./
+COPY frontend/package*.json ./
 # building your code for production
 RUN npm install --production --silent && mv node_modules ../
 # Bundle app source, I think .dockerignore will ignore specified files
-COPY . .
+COPY frontend/ .
 # the port that Docker container should export, mapping it to Docker daemon
 EXPOSE 8081
 # Tell Docker how to run the app
