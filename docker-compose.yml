@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  stom-frontend:
+    image: stom-frontend
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8081:8081
