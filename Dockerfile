@@ -8,8 +8,11 @@ WORKDIR /usr/src/app
 COPY frontend/package*.json ./
 # building your code for production
 RUN npm install --production --silent && mv node_modules ../
+#RUN npm run build
 # Bundle app source, I think .dockerignore will ignore specified files
+# TODO I think if i delete my build dir, then this docker container will NOT have the assets needed by server.js
 COPY frontend/ .
+#COPY build .
 # the port that Docker container should export, mapping it to Docker daemon
 EXPOSE 8081
 # Tell Docker how to run the app
