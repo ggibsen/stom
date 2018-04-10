@@ -18,6 +18,9 @@ RUN npm install --production --silent
 COPY public public/
 COPY src src/
 RUN npm run build
+# remove src, public dirs from image after client 'build' dir created
+# can't rm node_modules, exrpess.js won't run
+RUN rm -rf public/ && rm -rf src/
 
 # get server side assets into image
 COPY server.js ./
