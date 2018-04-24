@@ -1,6 +1,6 @@
 
 # Intro
-STOM...
+STOM Frontend... the user facing presentation layer for STOM
 
 
 # Build
