@@ -21,6 +21,7 @@ class Board extends React.Component {
         super(props);
         this.playerChars = ['X', 'O'];
         this.turn = 0;
+        this.gameOver = false;
         this.state = {
             squares: Array(9).fill(null),
             playerValSquares: Array(9).fill(0)
@@ -33,6 +34,9 @@ class Board extends React.Component {
     }
 
     handleClick(index) {
+        if (this.gameOver === true) {
+            return;
+        }
         if (this.state.squares[index] != null) {
             // if square is assigned (already clicked) then ignore the click event
             return;
@@ -52,8 +56,9 @@ class Board extends React.Component {
      * Do summation of squares, testing for a abs summation of 3
     */
     checkPlayerWin() {
-        if ( this.isPlayerWin()  ) {
-            alert("Congrats player "+this.getPlayerChar()+"!");
+        if (this.isPlayerWin()) {
+            this.gameOver = true;
+            alert("Congrats player " + this.getPlayerChar() + "!");
         }
     }
 
@@ -76,7 +81,9 @@ class Board extends React.Component {
     }
 
     changePlayerTurn() {
-        this.turn++;
+        if (this.gameOver === false) {
+            this.turn++;
+        }
     }
 
     getPlayerValue() {
@@ -88,8 +95,13 @@ class Board extends React.Component {
     }
 
     render() {
-        //TODO check state for winner
-        const status = 'Next player: ';
+        var status;
+        if (this.gameOver) {
+            status = 'Good job player ';
+        }
+        else {
+            status = 'Next player: ';
+        }
 
         return (
             <div>
