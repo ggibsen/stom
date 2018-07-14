@@ -44,41 +44,43 @@ class Board extends React.Component {
         }
         // best practice to keep state immutable, so here we're making a copy
         const newSquares = this.state.squares.slice();
+        const newPlayerValSquares = this.state.playerValSquares.slice();
+        // modify the copy state
         newSquares[index] = this.getPlayerChar();
-        // set state directly, to avoid extra render
-        this.state.playerValSquares[index] = this.getPlayerValue();
-        this.checkPlayerWin();
+        newPlayerValSquares[index] = this.getPlayerValue();
+        // see if we have a winner
+        this.checkPlayerWin(newPlayerValSquares);
         this.changePlayerTurn();
         // setState tells the comp its state has changed, therefore it invokes render()
-        this.setState({ squares: newSquares });
+        this.setState({ squares: newSquares, playerValSquares: newPlayerValSquares });
     }
 
     /** 
      * Do summation of squares, testing for a abs summation of 3
     */
-    checkPlayerWin() {
-        if (this.isPlayerWin()) {
+    checkPlayerWin(newPlayerValSquares) {
+        if (this.isPlayerWin(newPlayerValSquares)) {
             this.gameOver = true;
             console.log("Congrats player " + this.getPlayerChar() + "!");
         }
     }
 
-    isPlayerWin() {
+    isPlayerWin(newPlayerValSquares) {
         // first horizontal row checks
-        return this.isPlayerWinAtIndices(0, 1, 2) ||
-            this.isPlayerWinAtIndices(3, 4, 5) ||
-            this.isPlayerWinAtIndices(6, 7, 8) ||
+        return this.isPlayerWinAtIndices(newPlayerValSquares, 0, 1, 2) ||
+            this.isPlayerWinAtIndices(newPlayerValSquares, 3, 4, 5) ||
+            this.isPlayerWinAtIndices(newPlayerValSquares, 6, 7, 8) ||
             // now do veritical columns
-            this.isPlayerWinAtIndices(0, 3, 6) ||
-            this.isPlayerWinAtIndices(1, 4, 7) ||
-            this.isPlayerWinAtIndices(2, 5, 8) ||
+            this.isPlayerWinAtIndices(newPlayerValSquares, 0, 3, 6) ||
+            this.isPlayerWinAtIndices(newPlayerValSquares, 1, 4, 7) ||
+            this.isPlayerWinAtIndices(newPlayerValSquares, 2, 5, 8) ||
             // lastly 2 diagnols
-            this.isPlayerWinAtIndices(0, 4, 8) ||
-            this.isPlayerWinAtIndices(2, 4, 6);
+            this.isPlayerWinAtIndices(newPlayerValSquares, 0, 4, 8) ||
+            this.isPlayerWinAtIndices(newPlayerValSquares, 2, 4, 6);
     }
 
-    isPlayerWinAtIndices(i, j, k) {
-        return Math.abs(this.state.playerValSquares[i] + this.state.playerValSquares[j] + this.state.playerValSquares[k]) === 3;
+    isPlayerWinAtIndices(newPlayerValSquares, i, j, k) {
+        return Math.abs(newPlayerValSquares[i] + newPlayerValSquares[j] + newPlayerValSquares[k]) === 3;
     }
 
     changePlayerTurn() {
