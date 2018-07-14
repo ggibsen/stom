@@ -16,6 +16,6 @@ exports.random = (req, res) => {
         // player context is optional, so just ignore
         var randomNum = 10 * Math.random();
         console.log(`generated: ${randomNum}`);
-        res.status(200).send(randomNum);
+        res.status(200).send('Random Number: ' + randomNum);
     }
 };

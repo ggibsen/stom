@@ -9,7 +9,7 @@ import './index.css';
 class Square extends React.Component {
     render() {
         return (
-            <button className="square" onClick={() => this.props.clickCallBack()}>
+            <button className="square" onClick={this.props.clickCallBack}>
                 {this.props.display}
             </button>
         );
@@ -29,6 +29,7 @@ class Board extends React.Component {
     }
 
     renderSquare(i) {
+        // in a class (board), we use an arrow function to access the correct this value for handleClick
         return <Square display={this.state.squares[i]}
             clickCallBack={() => this.handleClick(i)} />;
     }
@@ -58,7 +59,7 @@ class Board extends React.Component {
     checkPlayerWin() {
         if (this.isPlayerWin()) {
             this.gameOver = true;
-            alert("Congrats player " + this.getPlayerChar() + "!");
+            console.log("Congrats player " + this.getPlayerChar() + "!");
         }
     }
 
