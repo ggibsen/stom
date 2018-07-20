@@ -21,7 +21,6 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
-            playerChars: ['X', 'O'],
             turn: 0,
             gameOver: false
         };
@@ -90,12 +89,8 @@ class Board extends React.Component {
         }
     }
 
-    getPlayerValue() {
-        return "X" === this.getPlayerChar() ? 1 : -1;
-    }
-
     getPlayerChar() {
-        return this.state.playerChars[(this.state.turn) % 2];
+        return this.state.turn % 2 === 0 ? 'X' : 'O';
     }
 
     render() {
