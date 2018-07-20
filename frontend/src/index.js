@@ -46,7 +46,6 @@ class Board extends React.Component {
         newSquares[index] = this.getPlayerChar();
         // see if we have a winner
         this.checkPlayerWin(newSquares);
-        this.changePlayerTurn();
         // setState tells the comp its state has changed, therefore it invokes render()
         this.setState({ squares: newSquares });
     }
@@ -56,8 +55,11 @@ class Board extends React.Component {
     */
     checkPlayerWin(newSquares) {
         if (this.isPlayerWin(newSquares)) {
-            this.state.gameOver = true;
+            this.setState({ gameOver: true });
             console.log("Congrats player " + this.getPlayerChar() + "!");
+        }
+        else {
+            this.setState({ turn: this.state.turn + 1 });
         }
     }
 
@@ -81,10 +83,6 @@ class Board extends React.Component {
 
     getNumericValue(squareChar) {
         return squareChar === 'X' ? 1 : (squareChar === 'O' ? -1 : 0);
-    }
-
-    changePlayerTurn() {
-        this.state.turn++;
     }
 
     getPlayerChar() {
