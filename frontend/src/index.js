@@ -21,7 +21,6 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
-            playerValSquares: Array(9).fill(0),
             playerChars: ['X', 'O'],
             turn: 0,
             gameOver: false
@@ -44,43 +43,45 @@ class Board extends React.Component {
         }
         // best practice to keep state immutable, so here we're making a copy
         const newSquares = this.state.squares.slice();
-        const newPlayerValSquares = this.state.playerValSquares.slice();
         // modify the copy state
         newSquares[index] = this.getPlayerChar();
-        newPlayerValSquares[index] = this.getPlayerValue();
         // see if we have a winner
-        this.checkPlayerWin(newPlayerValSquares);
+        this.checkPlayerWin(newSquares);
         this.changePlayerTurn();
         // setState tells the comp its state has changed, therefore it invokes render()
-        this.setState({ squares: newSquares, playerValSquares: newPlayerValSquares });
+        this.setState({ squares: newSquares });
     }
 
     /** 
      * Do summation of squares, testing for a abs summation of 3
     */
-    checkPlayerWin(newPlayerValSquares) {
-        if (this.isPlayerWin(newPlayerValSquares)) {
+    checkPlayerWin(newSquares) {
+        if (this.isPlayerWin(newSquares)) {
             this.state.gameOver = true;
             console.log("Congrats player " + this.getPlayerChar() + "!");
         }
     }
 
-    isPlayerWin(newPlayerValSquares) {
+    isPlayerWin(newSquares) {
         // first horizontal row checks
-        return this.isPlayerWinAtIndices(newPlayerValSquares, 0, 1, 2) ||
-            this.isPlayerWinAtIndices(newPlayerValSquares, 3, 4, 5) ||
-            this.isPlayerWinAtIndices(newPlayerValSquares, 6, 7, 8) ||
+        return this.isPlayerWinAtIndices(newSquares, 0, 1, 2) ||
+            this.isPlayerWinAtIndices(newSquares, 3, 4, 5) ||
+            this.isPlayerWinAtIndices(newSquares, 6, 7, 8) ||
             // now do veritical columns
-            this.isPlayerWinAtIndices(newPlayerValSquares, 0, 3, 6) ||
-            this.isPlayerWinAtIndices(newPlayerValSquares, 1, 4, 7) ||
-            this.isPlayerWinAtIndices(newPlayerValSquares, 2, 5, 8) ||
+            this.isPlayerWinAtIndices(newSquares, 0, 3, 6) ||
+            this.isPlayerWinAtIndices(newSquares, 1, 4, 7) ||
+            this.isPlayerWinAtIndices(newSquares, 2, 5, 8) ||
             // lastly 2 diagnols
-            this.isPlayerWinAtIndices(newPlayerValSquares, 0, 4, 8) ||
-            this.isPlayerWinAtIndices(newPlayerValSquares, 2, 4, 6);
+            this.isPlayerWinAtIndices(newSquares, 0, 4, 8) ||
+            this.isPlayerWinAtIndices(newSquares, 2, 4, 6);
     }
 
-    isPlayerWinAtIndices(newPlayerValSquares, i, j, k) {
-        return Math.abs(newPlayerValSquares[i] + newPlayerValSquares[j] + newPlayerValSquares[k]) === 3;
+    isPlayerWinAtIndices(newSquares, i, j, k) {
+        return Math.abs(this.getNumericValue(newSquares[i]) + this.getNumericValue(newSquares[j]) + this.getNumericValue(newSquares[k])) === 3;
+    }
+
+    getNumericValue(squareChar) {
+        return squareChar === 'X' ? 1 : (squareChar === 'O' ? -1 : 0);
     }
 
     changePlayerTurn() {
