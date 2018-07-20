@@ -84,9 +84,7 @@ class Board extends React.Component {
     }
 
     changePlayerTurn() {
-        if (this.state.gameOver === false) {
-            this.state.turn++;
-        }
+        this.state.turn++;
     }
 
     getPlayerChar() {
