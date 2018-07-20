@@ -19,12 +19,12 @@ class Square extends React.Component {
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.playerChars = ['X', 'O'];
-        this.turn = 0;
-        this.gameOver = false;
         this.state = {
             squares: Array(9).fill(null),
-            playerValSquares: Array(9).fill(0)
+            playerValSquares: Array(9).fill(0),
+            playerChars: ['X', 'O'],
+            turn: 0,
+            gameOver: false
         };
     }
 
@@ -35,7 +35,7 @@ class Board extends React.Component {
     }
 
     handleClick(index) {
-        if (this.gameOver === true) {
+        if (this.state.gameOver === true) {
             return;
         }
         if (this.state.squares[index] != null) {
@@ -60,7 +60,7 @@ class Board extends React.Component {
     */
     checkPlayerWin(newPlayerValSquares) {
         if (this.isPlayerWin(newPlayerValSquares)) {
-            this.gameOver = true;
+            this.state.gameOver = true;
             console.log("Congrats player " + this.getPlayerChar() + "!");
         }
     }
@@ -84,8 +84,8 @@ class Board extends React.Component {
     }
 
     changePlayerTurn() {
-        if (this.gameOver === false) {
-            this.turn++;
+        if (this.state.gameOver === false) {
+            this.state.turn++;
         }
     }
 
@@ -94,12 +94,12 @@ class Board extends React.Component {
     }
 
     getPlayerChar() {
-        return this.playerChars[(this.turn) % 2];
+        return this.state.playerChars[(this.state.turn) % 2];
     }
 
     render() {
         var status;
-        if (this.gameOver) {
+        if (this.state.gameOver) {
             status = 'Good job player ';
         }
         else {
